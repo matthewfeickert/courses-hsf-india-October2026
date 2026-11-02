@@ -65,6 +65,15 @@ RUN userdel --remove ubuntu && \
     groupadd --gid "${NB_GID}" "${NB_USER}" && \
     useradd --create-home --shell /bin/bash --uid "${NB_UID}" --gid "${NB_GID}" "${NB_USER}"
 
+# Ubuntu's /etc/bash.bashrc has a "sudo hint" block that runs 'groups' in every
+# interactive shell. When JupyterHub gives the pod a supplementary group that has no
+# name in /etc/group (e.g. GID 109), every terminal then prints
+# "groups: cannot find name for group ID 109". sudo is not installed in the image, so
+# the block can never print its hint, and removing it only removes that message.
+# The grep fails the build if the block changes such that a 'groups' call remains.
+RUN sed -i '/^# sudo hint$/,/^fi$/d' /etc/bash.bashrc && \
+    ! grep -q 'groups' /etc/bash.bashrc
+
 WORKDIR /app
 # Owned by the notebook user so that the environment and .pixi stay writable at runtime
 COPY --from=build --chown=${NB_UID}:${NB_GID} /app/.pixi/envs/$ENVIRONMENT /app/.pixi/envs/$ENVIRONMENT
