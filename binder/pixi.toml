@@ -28,6 +28,7 @@ dm-haiku = "*"
 emacs = "*"
 equinox = "*"
 flax = "*"
+fsspec-xrootd = "*" # root:// file access for coffea and uproot
 git = "*"
 graphviz = "*"
 grpcio = "*"
