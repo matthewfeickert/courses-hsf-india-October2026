@@ -10,12 +10,7 @@ aiohttp = "*"
 astunparse = "*"
 awkward = "*"
 bash_kernel = "*"
-# clang-tools and numba/llvmlite both depend on LLVM. Without a version pin,
-# two separate libLLVM copies (~200MB each) get installed. Pin clang-tools to
-# the same major version that llvmlite requires so they share one libLLVM.
-# To find the current llvmlite LLVM version: pixi list llvm
-clang-tools = "21.*" # must match llvmlite's LLVM major version
-libclang13 = "21.*" # clang-tools depends on libclang13; unpinned, the solver picks a newer LLVM and a second libLLVM copy
+clang-tools = "*"
 code-server = "*"
 coffea = "*"
 cudnn = "*"
@@ -51,7 +46,7 @@ jupyterlab-mathjax3 = "*"
 file = "*" # not provided by the base image
 less = "*" # pager for git, as the base image only provides more
 lz4 = "*"
-matplotlib-base = "*" # not matplotlib: the meta-package pulls pyside6 (Qt backend) and a second libLLVM; ipympl covers interactive use
+matplotlib-base = "*" # not matplotlib: the meta-package adds the pyside6 Qt backend, which a headless container does not need; ipympl covers interactive use
 nano = "*"
 nbgitpuller = "*"
 notebook = "*"
