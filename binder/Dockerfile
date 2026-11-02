@@ -93,6 +93,11 @@ COPY --chown=${NB_UID}:${NB_GID} binder/opencode.jsonc /home/${NB_USER}/.config/
 ## remove the news
 COPY --chown=${NB_UID}:${NB_GID} binder/overrides.json /app/.pixi/envs/$ENVIRONMENT/share/jupyter/lab/settings/overrides.json
 
+## serve files through the ~/work symlink to /data that setup-work-dir.sh creates
+# Sets the Jupyter root directory to / and opens JupyterLab in the home directory.
+# See the comments in binder/jupyter_server_config.py for why.
+COPY --chown=${NB_UID}:${NB_GID} binder/jupyter_server_config.py /app/.pixi/envs/$ENVIRONMENT/etc/jupyter/jupyter_server_config.py
+
 USER $NB_USER
 # Otherwise the entrypoint falls back to the numeric UID, which setup-work-dir.sh
 # would use as the work directory name when JUPYTERHUB_USER is not set
