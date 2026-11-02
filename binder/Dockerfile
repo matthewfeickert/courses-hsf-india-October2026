@@ -87,4 +87,4 @@ USER $MAMBA_USER
 WORKDIR /home/jovyan
 RUN echo "export PS1='\[\e[0;32m\]\w\$\[\e[0m\] '" >> .bashrc
 RUN mkdir -p .jupyter && echo "c = get_config()" > .jupyter/jupyter_server_config.py && \ 
-    echo "c.ServicesManager.allow_orphan_symlinks = True" >> .jupyter/jupyter_server_config.py
+    echo "c.ContentsManager.allow_orphan_symlinks = True" >> .jupyter/jupyter_server_config.py
