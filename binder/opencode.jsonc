@@ -1,26 +1,21 @@
-{
-  "$schema": "https://opencode.ai/config.json",
-  "model": "nrp/qwen3",
-  "autoshare": false,
-  "agents": {
-    "title": {
-      "model": "nrp/qwen3-small"
-    }
-  },
-  "providers": {
-    "nrp": {
-      "name": "NRP",
-      "package": "aisdk:@ai-sdk/openai-compatible",
-      "env": ["NRP_API_KEY"],
-      "settings": {
-        "baseURL": "https://ellm.nrp-nautilus.io/v1"
-      },
-      "models": {
-        "qwen3": { "name": "Qwen3" },
-        "qwen3-small": { "name": "Qwen3 Small" },
-        "glm-5": { "name": "GLM 5" },
-        "deepseek-v4-flash": { "name": "DeepSeek V4 Flash" }
-      }
-    }
-  }
+                                                                                                 
+  "$schema": "https://opencode.ai/config.json",                                                   
+  "provider": {                                                                                   
+    "nrp": {                                                                                      
+      "name": "NRP",                                                                              
+      "npm": "@ai-sdk/openai-compatible",                                                         
+      "options": {                                                                                
+        "baseURL": "https://ellm.nrp-nautilus.io/v1",                                             
+        "apiKey": "{file:~/.nrp-llm-token}"                                                       
+      },                                                                                          
+      "models": {                                                                                 
+        "qwen3": { "name": "Qwen3" },                                                             
+        "qwen3-small": { "name": "Qwen3 Small" },                                                 
+        "glm-5": { "name": "GLM 5" },                                                             
+        "deepseek-v4-flash": { "name": "DeepSeek V4 Flash" }                                      
+      }                                                                                           
+    }                                                                                             
+  },                                                                                              
+  "model": "nrp/deepseek-v4-flash",                                                               
+                                                                                                  
 }
