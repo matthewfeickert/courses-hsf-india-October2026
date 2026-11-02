@@ -31,12 +31,16 @@ RUN pixi run --locked --environment $ENVIRONMENT bash -c \
 # Activate ENVIRONMENT at container runtime by using the Pixi environment
 # activation script as the container ENTRYPOINT.
 # Set fallback environmental variables to guard against batch system defaults.
+# The shell hook sets PATH to its value at build time, so add the runtime user's
+# 'pixi global' bin directory after it. It goes last so that the course environment
+# takes precedence over globally installed tools.
 # setup-work-dir.sh runs after activation as it needs gitpuller from the environment.
 RUN echo "#!/usr/bin/env bash" > /app/entrypoint.sh && \
     echo 'export USER="${USER:-$(id -u)}"' >> /app/entrypoint.sh && \
     echo 'export LOGNAME="${LOGNAME:-$USER}"' >> /app/entrypoint.sh && \
     echo '[ -w "${HOME:-/}" ] || export HOME="$(mktemp -d)"' >> /app/entrypoint.sh && \
     pixi shell-hook --environment $ENVIRONMENT --shell bash >> /app/entrypoint.sh && \
+    echo 'export PATH="${PATH}:${PIXI_HOME:-$HOME/.pixi}/bin"' >> /app/entrypoint.sh && \
     echo '/usr/local/bin/setup-work-dir.sh' >> /app/entrypoint.sh && \
     echo 'exec "$@"' >> /app/entrypoint.sh && \
     chmod 0755 /app/entrypoint.sh
