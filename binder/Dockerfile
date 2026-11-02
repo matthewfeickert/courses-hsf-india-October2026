@@ -87,4 +87,6 @@ USER $MAMBA_USER
 WORKDIR /home/jovyan
 RUN echo "export PS1='\[\e[0;32m\]\w\$\[\e[0m\] '" >> .bashrc
 RUN mkdir -p .jupyter && echo "c = get_config()" > .jupyter/jupyter_server_config.py && \ 
-    echo "c.AsyncLargeFileManager.allow_orphan_symlinks = True" >> .jupyter/jupyter_server_config.py
+    echo "import os" >> .jupyter/jupyter_server_config.py && \
+    echo "c.ServerApp.root_dir = '/'" >> .jupyter/jupyter_server_config.py &&
+    echo "c.ServerApp.preferred_dir = os.path.expanduser('~')" >> .jupyter/jupyter_server_config.py
