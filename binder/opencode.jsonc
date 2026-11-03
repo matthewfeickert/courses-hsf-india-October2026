@@ -17,4 +17,26 @@
     }
   },
   "model": "nrp/deepseek-v4-flash",
+  // Keep the agent from reading or changing the NRP API key file. These rules
+  // stop accidental exposure only: a determined prompt injection can still get
+  // around pattern matching, so use short-lived per-student keys as well.
+  // Rules are evaluated last match wins, cf. https://opencode.ai/docs/permissions/
+  "permission": {
+    "read": {
+      "*": "allow",
+      // Keep the default approval prompt for .env files
+      "*.env": "ask",
+      "*.env.*": "ask",
+      "*.env.example": "allow",
+      "*nrp-llm-token*": "deny"
+    },
+    "edit": {
+      "*": "allow",
+      "*nrp-llm-token*": "deny"
+    },
+    "bash": {
+      "*": "allow",
+      "*nrp-llm-token*": "deny"
+    }
+  }
 }
