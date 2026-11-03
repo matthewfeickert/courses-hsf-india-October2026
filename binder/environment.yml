@@ -4,6 +4,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.14
+  - cuda-version=13.8
   - aiohttp
   - astunparse
   - awkward
