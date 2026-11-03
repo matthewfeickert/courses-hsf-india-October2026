@@ -40,8 +40,8 @@ USER $MAMBA_USER
 COPY binder/environment.yml .
 
 RUN \
-    CONDA_OVERRIDE_CUDA="13.2" micromamba env update --name base -f environment.yml && \
-    CONDA_OVERRIDE_CUDA="13.2" micromamba install -y  -c conda-forge \
+    CONDA_OVERRIDE_CUDA="13.8" micromamba env update --name base -f environment.yml && \
+    CONDA_OVERRIDE_CUDA="13.8" micromamba install -y  -c conda-forge \
     jupyterlab openssh notebook vim nano emacs curl wget  && \
     micromamba clean --all --yes && \
     rm -rf /opt/conda/pkgs ~/.cache \
