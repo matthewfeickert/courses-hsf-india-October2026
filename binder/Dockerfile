@@ -72,7 +72,7 @@ RUN ln=`grep -n "exec " /usr/local/bin/_entrypoint.sh | tail -1 | cut -f1 -d:`; 
 ## install opencode
 RUN curl -fsSL https://opencode.ai/v2/install | bash -s -- --no-modify-path && \
     mv /root/.opencode/bin/opencode /usr/local/bin/opencode
-## pre-configure opencode with NRP provider (users set NRP_API_KEY themselves)
+## pre-configure opencode with NRP provider (reads the API key from ~/.nrp-llm-token)
 COPY binder/opencode.jsonc /tmp/opencode.jsonc
 RUN mkdir -p /home/${MAMBA_USER}/.config/opencode && \
     cp /tmp/opencode.jsonc /home/${MAMBA_USER}/.config/opencode/opencode.jsonc && \

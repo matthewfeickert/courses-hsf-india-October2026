@@ -1,21 +1,42 @@
-                                                                                                 
-  "$schema": "https://opencode.ai/config.json",                                                   
-  "provider": {                                                                                   
-    "nrp": {                                                                                      
-      "name": "NRP",                                                                              
-      "npm": "@ai-sdk/openai-compatible",                                                         
-      "options": {                                                                                
-        "baseURL": "https://ellm.nrp-nautilus.io/v1",                                             
-        "apiKey": "{file:~/.nrp-llm-token}"                                                       
-      },                                                                                          
-      "models": {                                                                                 
-        "qwen3": { "name": "Qwen3" },                                                             
-        "qwen3-small": { "name": "Qwen3 Small" },                                                 
-        "glm-5": { "name": "GLM 5" },                                                             
-        "deepseek-v4-flash": { "name": "DeepSeek V4 Flash" }                                      
-      }                                                                                           
-    }                                                                                             
-  },                                                                                              
-  "model": "nrp/deepseek-v4-flash",                                                               
-                                                                                                  
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "nrp": {
+      "name": "NRP",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "https://ellm.nrp-nautilus.io/v1",
+        "apiKey": "{file:~/.nrp-llm-token}"
+      },
+      "models": {
+        "qwen3": { "name": "Qwen3" },
+        "qwen3-small": { "name": "Qwen3 Small" },
+        "glm-5": { "name": "GLM 5" },
+        "deepseek-v4-flash": { "name": "DeepSeek V4 Flash" }
+      }
+    }
+  },
+  "model": "nrp/deepseek-v4-flash",
+  // Keep the agent from reading or changing the NRP API key file. These rules
+  // stop accidental exposure only: a determined prompt injection can still get
+  // around pattern matching, so use short-lived per-student keys as well.
+  // Rules are evaluated last match wins, cf. https://opencode.ai/docs/permissions/
+  "permission": {
+    "read": {
+      "*": "allow",
+      // Keep the default approval prompt for .env files
+      "*.env": "ask",
+      "*.env.*": "ask",
+      "*.env.example": "allow",
+      "*nrp-llm-token*": "deny"
+    },
+    "edit": {
+      "*": "allow",
+      "*nrp-llm-token*": "deny"
+    },
+    "bash": {
+      "*": "allow",
+      "*nrp-llm-token*": "deny"
+    }
+  }
 }
