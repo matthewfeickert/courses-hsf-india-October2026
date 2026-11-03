@@ -74,6 +74,17 @@ RUN userdel --remove ubuntu && \
 RUN sed -i '/^# sudo hint$/,/^fi$/d' /etc/bash.bashrc && \
     ! grep -q 'groups' /etc/bash.bashrc
 
+# Enable Git tab completions in interactive shells, so that users do not have to
+# source the completion script themselves.
+# The base image has no bash-completion, but git from the Pixi environment ships its
+# completion script. /etc/bash.bashrc is read by interactive shells, and Ubuntu's
+# /etc/profile also sources it for the login shells that JupyterLab terminals start.
+# Unlike ~/.bashrc, it is not hidden if the hub mounts a home directory volume.
+RUN printf '\n# Enable Git tab completions\nif [ -f %s ]; then\n    . %s\nfi\n' \
+        "/app/.pixi/envs/${ENVIRONMENT}/share/bash-completion/completions/git" \
+        "/app/.pixi/envs/${ENVIRONMENT}/share/bash-completion/completions/git" \
+        >> /etc/bash.bashrc
+
 WORKDIR /app
 # Owned by the notebook user so that the environment and .pixi stay writable at runtime
 COPY --from=build --chown=${NB_UID}:${NB_GID} /app/.pixi/envs/$ENVIRONMENT /app/.pixi/envs/$ENVIRONMENT
