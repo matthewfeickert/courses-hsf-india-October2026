@@ -65,7 +65,7 @@ dependencies:
   - pip:
       - h5py
       - tensorboard
-      - jax
+      - jax[cuda13_local]
       - optax
       - equinox
       - dm-haiku
