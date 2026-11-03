@@ -98,7 +98,7 @@ COPY --from=build /app/entrypoint.sh /app/entrypoint.sh
 COPY --chmod=0755 binder/setup-work-dir.sh /usr/local/bin/setup-work-dir.sh
 
 COPY --from=build /root/.opencode/bin/opencode /usr/local/bin/opencode
-## pre-configure opencode with NRP provider (users set NRP_API_KEY themselves)
+## pre-configure opencode with NRP provider (reads the API key from ~/.nrp-llm-token)
 COPY --chown=${NB_UID}:${NB_GID} binder/opencode.jsonc /home/${NB_USER}/.config/opencode/opencode.jsonc
 
 ## remove the news
