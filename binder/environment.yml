@@ -1,6 +1,6 @@
 name: hsf-india
 channels:
-  - nvidia/label/cuda-13.2
+#  - nvidia/label/cuda-13.8
   - conda-forge
 dependencies:
   - python=3.14
