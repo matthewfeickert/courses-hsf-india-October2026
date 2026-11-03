@@ -7,3 +7,6 @@
 [submodule "hsf-india-agents"]
 	path = hsf-india-agents
 	url = ../../andrzejnovak/hsf-india-agents
+[submodule "ML_Mandi"]
+	path = ML_Mandi
+	url = ../../rafaellopesdesa/ML_Mandi
