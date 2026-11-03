@@ -50,6 +50,7 @@ dependencies:
   - pympler
   - pyshp
   - py-spy
+  - pytorch-gpu
   - python-graphviz
   - requests
   - scikit-learn
