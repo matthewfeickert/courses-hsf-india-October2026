@@ -1,14 +1,15 @@
 name: hsf-india
 channels:
-  - nvidia/label/cuda-13.2
+#  - nvidia/label/cuda-13.8
   - conda-forge
 dependencies:
   - python=3.14
+  - cuda-version=13.4
   - aiohttp
   - astunparse
   - awkward
   - bash_kernel
-  - bitsandbytes
+  #- bitsandbytes
   # clang-tools and numba/llvmlite both depend on LLVM. Without a version pin,
   # conda installs two separate libLLVM copies (~200MB each). Pin clang-tools to
   # the same major version that llvmlite requires so they share one libLLVM.
@@ -64,8 +65,7 @@ dependencies:
   - pip:
       - h5py
       - tensorboard
-      - jax[cuda13]
-      - nvidia-cudnn-cu13
+      - jax[cuda13_local]
       - optax
       - equinox
       - dm-haiku
