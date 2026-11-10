@@ -40,7 +40,7 @@ ipympl = "*"
 jax = "*"
 jaxlib = { version = "*", build = "cuda*" }
 jupyter-vscode-proxy = "*"
-jupyterhub = "*" # needed for correct oauth behavior
+jupyterhub = ">=6.1.1,<7" # needed for correct oauth behavior
 jupyterlab = "*"
 jupyterlab-deck = "*"
 jupyterlab-mathjax3 = "*"
